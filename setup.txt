@@ -1,0 +1,44 @@
+CLI SETUP ACCOUNT CONSOLE
+Account url: https://accounts.cloud.databricks.com
+Account id: 3a8b3928-14b3-402a-9080-071ad88de3dc
+
+databricks auth login --host <account-console-url> --account-id <account-id>
+(AWS so do not use azure databricks console link)
+
+- databricks auth login --host https://accounts.cloud.databricks.com --account-id 3a8b3928-14b3-402a-9080-071ad88de3dc 
+
+1. Created one account level login credential. 
+
+VALIDATE TOKENS
+- databricks auth token -p <profile-name> (to get bearer token)
+- databricks auth token --host <workspace-url> --account-id <account-id> (to get workspace level token)
+- databricks auth token --host <workspace-url> --account-id <account-id> -p <profile-name>
+
+Workspace-dev: https://dbc-dd0c1ba6-cc7d.cloud.databricks.com/?o=739397665477515
+               739397665477515
+Workspace-tst: https://dbc-e13694e8-bde7.cloud.databricks.com/?o=2064000706184763 
+               2064000706184763
+Workspace-prd: https://dbc-2b58e21b-0638.cloud.databricks.com/?o=4004554732766439
+               4004554732766439
+
+2. Created two workspace level logins
+    - databricks auth login --host https://dbc-dd0c1ba6-cc7d.cloud.databricks.com --account-id 3a8b3928-14b3-402a-9080-071ad88de3dc 
+    - databricks auth login --host https://dbc-e13694e8-bde7.cloud.databricks.com --account-id 3a8b3928-14b3-402a-9080-071ad88de3dc 
+
+DEV
+databricks auth token --host https://dbc-dd0c1ba6-cc7d.cloud.databricks.com/?o=739397665477515 --account-id 3a8b3928-14b3-402a-9080-071ad88de3dc -p kris-private
+
+TST
+databricks auth token --host https://dbc-e13694e8-bde7.cloud.databricks.com/?o=2064000706184763 --account-id 3a8b3928-14b3-402a-9080-071ad88de3dc -p kris-private
+
+BUNDLE INITI RUNTHROUGH 
+- project: mlops-launchpad
+- branch names: not inputted - use default
+- user group: ml-all
+- user group execute priv: ml-all [change to ml-exec for later iterations]
+- model schema: ml_models
+- ml model catalogs: kris_private_dev / kris_private_tst / kris_private_prd
+- all other catalogs: Name of workspace 
+- all other schemas
+- inference table: dev.my_mlops_boilerplate.predictions -> kris_private_dev.ml_models.predictions
+- feature_store: Yes
